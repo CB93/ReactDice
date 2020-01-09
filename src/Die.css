@@ -1,0 +1,10 @@
+.Die {
+  font-size: 10em;
+  padding: 0.25em;
+  color: slateblue;
+}
+
+.shaking {
+  animation-name: wobble;
+  animation-duration: 1s;
+}

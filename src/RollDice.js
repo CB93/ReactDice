@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import Dice from './Dice'
-import CONSTANTS from './Constants'
+import Die from './Die'
+import './RollDice.css'
+
 class RollDice extends Component {
-
-
+  static defaultProps = {
+    sides : [`one`,`two`,`three`,`four`,`five`,`six`]
+  }
   constructor() {
     super()
     this.state = {
@@ -13,24 +15,29 @@ class RollDice extends Component {
     this.roll = this.roll.bind(this)
   }
 
-
   // Rolls a value between 1 and 6 for both die and converts value into a word.
   roll() {
-    const value1 = CONSTANTS.ROLLNUMS[Math.floor(Math.random() * 6)]
-    const value2 = CONSTANTS.ROLLNUMS[Math.floor(Math.random() * 6)]
+    const side1 = this.props.sides[
+      Math.floor(Math.random() * this.props.sides.length)
+    ]
+    const side2 = this.props.sides[
+      Math.floor(Math.random() * this.props.sides.length)
+    ]
 
     this.setState({
-      diceOne: value1,
-      diceTwo: value2,
+      diceOne: side1,
+      diceTwo: side2,
     })
   }
 
   render() {
     return (
-      <div>
-        <Dice value={this.state.diceOne} />
-        <Dice value={this.state.diceTwo} />
-        <button onClick={this.roll}>Click to roll</button>
+      <div className="RollDice">
+        <div className="RollDice-container">
+        <Die value={this.state.diceOne} />
+        <Die value={this.state.diceTwo} />
+        </div>
+        <button onClick={this.roll}>Roll Dice!</button>
       </div>
     )
   }
