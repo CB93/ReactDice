@@ -4,7 +4,7 @@ import './Die.css'
 const Die = (props) => {
   return (
     <div className="Die">
-      <i className={`fas fa-dice-${props.value}`}></i>      
+      <i className={`fas fa-dice-${props.value} ${props.rolling && 'shaking'}`}></i>
     </div>
   );
 };

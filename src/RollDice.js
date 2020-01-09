@@ -4,19 +4,16 @@ import './RollDice.css'
 
 class RollDice extends Component {
   static defaultProps = {
-    sides : [`one`,`two`,`three`,`four`,`five`,`six`]
+    sides: [`one`, `two`, `three`, `four`, `five`, `six`]
   }
   constructor() {
     super()
-    this.state = {
-      diceOne: "one",
-      diceTwo: "one"
-    }
+    this.state = { diceOne: "one", diceTwo: "one", rolling: false }
     this.roll = this.roll.bind(this)
   }
 
-  // Rolls a value between 1 and 6 for both die and converts value into a word.
   roll() {
+    //rolls a value between 1 and 6
     const side1 = this.props.sides[
       Math.floor(Math.random() * this.props.sides.length)
     ]
@@ -24,20 +21,24 @@ class RollDice extends Component {
       Math.floor(Math.random() * this.props.sides.length)
     ]
 
-    this.setState({
-      diceOne: side1,
-      diceTwo: side2,
-    })
+    this.setState({ diceOne: side1, diceTwo: side2, rolling: true })
+
+    //wait one second, then set rolling to false
+    setTimeout(() => {
+      this.setState({ rolling: false })
+    }, 1000)
   }
 
   render() {
     return (
       <div className="RollDice">
         <div className="RollDice-container">
-        <Die value={this.state.diceOne} />
-        <Die value={this.state.diceTwo} />
+          <Die value={this.state.diceOne} rolling={this.state.rolling} />
+          <Die value={this.state.diceTwo} rolling={this.state.rolling} />
         </div>
-        <button onClick={this.roll}>Roll Dice!</button>
+        <button onClick={this.roll} disabled={this.state.rolling}>
+          {this.state.rolling ? `Rolling..` : `Roll Dice!`}
+        </button>
       </div>
     )
   }
